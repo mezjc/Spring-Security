@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+//1ro creamos el user implementando UserDetails
 @Entity
 @Table(name = "\"user\"")
 //implementamos de userDetails ya que esto sera una entidad que devuelva el contexto de spring y tiene que implementar de estaclase
@@ -31,6 +32,7 @@ public class User implements UserDetails {
         if (role == null) return null;
         if (role.getPermissions() == null)return null;
 
+        //return List.of(new SimpleGrantedAuthority(role.name)));
         //convertimos los role en SimpleGrantedAuthority y lo almacenamos en una lista nuevamente
         //role.getPermissions() esto es una lista de RolePermission
         return role.getPermissions().stream()
@@ -40,6 +42,8 @@ public class User implements UserDetails {
                 })
                 .collect(Collectors.toList());
     }
+
+
 
     @Override
     public String getPassword() {
@@ -102,4 +106,5 @@ public class User implements UserDetails {
     public void setRole(Role role) {
         this.role = role;
     }
+
 }

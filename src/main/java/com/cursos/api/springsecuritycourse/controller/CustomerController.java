@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+//3ro creamos
 //controlador para crear un nuevo usuario
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/customers")
 public class CustomerController {
 
     @Autowired
@@ -22,7 +23,7 @@ public class CustomerController {
 
     //RegisteredUser es un dto que sirve para registrar un usuario y guardara un jwt para cuando se registre se logue automaticante
     @PostMapping
-    public ResponseEntity<RegisteredUser> registeterOne(@RequestBody  @Valid SaveUser newUser){
+    public ResponseEntity<RegisteredUser> registerOne(@RequestBody @Valid SaveUser newUser){
         RegisteredUser registeredUser = authenticationService.registerOneCustomer(newUser);
         return ResponseEntity.status(HttpStatus.CREATED).body(registeredUser);
 

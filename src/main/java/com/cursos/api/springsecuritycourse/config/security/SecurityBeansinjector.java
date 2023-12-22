@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-//1 se configura AuthenticationConfiguration
+//2do se configura AuthenticationConfiguration con los beans que usaremos en nuestro proyecto
 @Configuration
 public class SecurityBeansinjector {
 
@@ -33,7 +33,8 @@ public class SecurityBeansinjector {
 
     }
 
-    //creando nuestra estrategia de authentication DaoAuthenticationProvider es ta estrategia esta basado en authentication con base de datos
+    //creando nuestra estrategia de authentication DaoAuthenticationProvider es ta estrategia esta basado en authentication
+    // con base de datos
     @Bean
     public AuthenticationProvider authenticationProvider(){
         //esto implemeneta el authenticationProvider y necesita un passwordEncode esto permite ver si coincide una
@@ -54,14 +55,14 @@ public class SecurityBeansinjector {
     }
 
     //creamos el userDetrailsService
-    //esta clase hace que al momento de logueanos lo haga por la base de datos
+    //es una interface que se utiliza para cargar los detalles de un usuario en especifico
     //userDetailsService devuelve un UserDetails y como mi entidad usuario implementa de UserDetails no nos da error
     @Bean
     public UserDetailsService userDetailsService(){
-        return (username) ->{
-            return userRepository.findByUsername(username)
-                    .orElseThrow(() -> new ObjectNotFoundException("User not found with username " + username));
-        };
-    }
+        return (username) -> userRepository
+                .findByUsername(username)
+                .orElseThrow(() -> new ObjectNotFoundException("User not found with username " + username));
+    };
+
 
 }

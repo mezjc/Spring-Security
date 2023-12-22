@@ -7,6 +7,7 @@ import com.cursos.api.springsecuritycourse.persistence.repository.UserRepository
 import com.cursos.api.springsecuritycourse.persistence.util.Role;
 import com.cursos.api.springsecuritycourse.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -15,6 +16,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public User registerOneCustomer(SaveUser newUser) {
 
@@ -22,9 +27,9 @@ public class UserServiceImpl implements UserService {
         validatePassword(newUser);
 
         User user = new User();
-        user.setName(newUser.getName());
+        user.setPassword(passwordEncoder.encode(newUser.getPassword()));
         user.setUsername(newUser.getUsername());
-        user.setPassword(newUser.getPassword());
+        user.setName(newUser.getName());
         //se le setea un rol por default
         user.setRole(Role.ROLE_CUSTOMER);
 
@@ -40,7 +45,7 @@ public class UserServiceImpl implements UserService {
         }
         //compara si es igual los password
         if (!newUser.getPassword().equals(newUser.getRepeatedPassword())){
-            throw new InvalidPasswordException("Password don't match");
+            throw new InvalidPasswordException("Password don't match2");
         }
 
     }
