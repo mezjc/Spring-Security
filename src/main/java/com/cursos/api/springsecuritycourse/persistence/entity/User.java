@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 //1ro creamos el user implementando UserDetails
 @Entity
-@Table(name = "\"user\"")
+@Table(name = "tbl_user")
 //implementamos de userDetails ya que esto sera una entidad que devuelva el contexto de spring y tiene que implementar de estaclase
 public class User implements UserDetails {
 
